@@ -10,7 +10,7 @@ const Maks = (props) => {
     };
 
     return (
-        <List header={<h2>{title}</h2>} style={{ '--border-top': '2px' }} >
+        <List header={<h2>{title}</h2>} style={{ '--border-top': '2px', padding: '0 15px' }} >
             {questions.map((item) => {
                 return (
                     <List.Item key={item.id}>
