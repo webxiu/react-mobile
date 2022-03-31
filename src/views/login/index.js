@@ -13,7 +13,7 @@ export default (props) => {
     const onFinish = (values) => {
         console.log("onFinish", values);
         const value = form.getFieldsValue();
-        if (value.password !== "123456") {
+        if (value.password !== '123456') {
             Dialog.alert({ content: "密码错误!" });
             return;
         }
@@ -28,7 +28,7 @@ export default (props) => {
                 layout="horizontal"
                 mode="card"
                 onFinish={onFinish}
-                initialValues={{ username: "admin", password: 123456 }}
+                initialValues={{ username: "admin", password: '123456' }}
             >
                 <Form.Header>用户登录</Form.Header>
                 <Form.Item
