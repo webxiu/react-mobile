@@ -1,3 +1,4 @@
+import { Divider, Result } from "antd-mobile";
 import { getURLParameters, rangeRandom } from "../../../utils";
 import { useLocation, useParams } from "react-router";
 
@@ -5,7 +6,6 @@ import AnswerQuestion from "./AnswerQuestion";
 import ChoiceQuestion from "./ChoiceQuestion";
 import NavBack from "../../../layout/NavBack";
 import React from "react";
-import { Result } from "antd-mobile";
 import { marxObj } from "../../../data/marx";
 
 const descList = [
@@ -42,7 +42,7 @@ const Maks = () => {
 
   return (
     <NavBack query={query}>
-      <div style={{ marginBottom: 20 }}>
+      <div style={{ margin: "0 15px 20px" }}>
         {hacCate ? (
           randerResult[marxObj[parmas.id].cate]
         ) : (
@@ -52,6 +52,15 @@ const Maks = () => {
             description={descList[rangeRandom(0, descList.length - 1)]}
           />
         )}
+        <Divider
+          style={{
+            color: "#1677ff",
+            borderColor: "#1677ff",
+            borderStyle: "dashed",
+          }}
+        >
+          没有更多了
+        </Divider>
       </div>
     </NavBack>
   );

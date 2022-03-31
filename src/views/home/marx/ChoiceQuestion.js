@@ -10,13 +10,10 @@ const Maks = (props) => {
   };
 
   return (
-    <List
-      header={<h2 className="ui-ta-c">选择题</h2>}
-      style={{ "--border-top": "2px", padding: "0 15px" }}
-    >
+    <List header={<h2 className="ui-ta-c">选择题</h2>}>
       {questions.map((item) => {
         return (
-          <List.Item key={item.id}>
+          <List.Item key={item.id} style={{ "--border-top": "2px" }}>
             <div className="flex align-start mt20">
               <Typography.Text mark>[{item.number}]</Typography.Text>
               <div style={{ fontSize: 14 }}>

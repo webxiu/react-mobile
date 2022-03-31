@@ -12,10 +12,7 @@ const Wrap = (props) => {
     <List header={<h2 className="ui-ta-c">简答题</h2>}>
       {questions.map((item) => {
         return (
-          <List.Item
-            key={item.id}
-            style={{ "--border-top": "2px", padding: "0 15px" }}
-          >
+          <List.Item key={item.id} style={{ "--border-top": "2px" }}>
             <div className="flex align-start">
               <Typography.Text mark>[{item.number}]</Typography.Text>
               <div style={{ fontSize: 14 }}>
