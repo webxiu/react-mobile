@@ -6,7 +6,7 @@ import {
   UserOutline,
 } from "antd-mobile-icons";
 import React, { lazy } from "react";
-import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
+import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 
 import { Badge } from "antd-mobile";
 import MenuList from "../layout/MenuList";
@@ -60,20 +60,35 @@ export const menus = [
 /** 一级级路由 */
 export const RootRouter = withRouter(() => (
   <Switch>
-    <Route path="/marx/chapter/:id" component={lazy(() => import(/* webpackChunkName: 'marx' */ "../views/home/marx/chapter"))} />
-    <Route path="/login" component={lazy(() => import(/* webpackChunkName: 'login' */ "../views/login"))} />
+    <Route
+      path="/marx/chapter/:id"
+      component={lazy(() =>
+        import(/* webpackChunkName: 'marx' */ "../views/home/marx/chapter")
+      )}
+    />
+    <Route
+      path="/login"
+      component={lazy(() =>
+        import(/* webpackChunkName: 'login' */ "../views/login")
+      )}
+    />
     <MenuList>
       <Route
         path="/"
         render={() => (
           <Switch>
             <Redirect exact={true} from="/" to="/home/index" />
-            <Route path="/home" component={lazy(() => import(/* webpackChunkName: 'home' */ "../views/home/index"))} />
+            <Route
+              path="/home"
+              component={lazy(() =>
+                import(/* webpackChunkName: 'home' */ "../views/home/index")
+              )}
+            />
           </Switch>
         )}
       />
     </MenuList>
-    <Route path={'*'} render={() => <div>404全局</div>} />
+    <Route path={"*"} render={() => <div>404全局</div>} />
   </Switch>
 ));
 
@@ -81,14 +96,16 @@ export const RootRouter = withRouter(() => (
 export const MenuRouter = withRouter(() => {
   return (
     <Switch>
-      {menus.map((route, idx) =>
+      {menus.map((route, idx) => (
         <Route
           key={route.path}
           path={route.path}
           exact={route.exact}
-          render={(props) => (<route.component {...props} router={route.routes} />)}
+          render={(props) => (
+            <route.component {...props} router={route.routes} />
+          )}
         />
-      )}
+      ))}
       <Route path="*" render={() => <div>404菜单</div>} />
       {/* <Redirect from="/" to="/hacker" exact={true} /> */}
     </Switch>
