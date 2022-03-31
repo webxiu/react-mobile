@@ -1,6 +1,6 @@
 import "./index.css";
 
-import { NavBar, Popover, Space } from "antd-mobile";
+import { NavBar, NoticeBar, Popover, Space } from "antd-mobile";
 import { isPc, throttle } from "../../utils";
 
 import { AppstoreOutline } from "antd-mobile-icons";
@@ -43,6 +43,7 @@ const NavBack = (props) => {
             <span>{query.title}</span>
           </Popover>
         </NavBar>
+        <NoticeBar content={query.name} color="alert" />
       </div>
       <div className="flex-1 ui-ovy-a">
         <div onScroll={onScroll}>{props.children}</div>

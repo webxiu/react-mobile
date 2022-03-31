@@ -34,7 +34,7 @@ const marxList = [
       "马克思主义基本原理概论（03709）是高等教育自学考试各专业本科阶段的一门公共基础课。本课程共7章内容，重点在第1章、第2章、第3章、第4章、第5章、第6章；次重点在第7章。",
   },
   {
-    path: "/history/",
+    path: "/marx/chapter",
     exact: true,
     id: 3708,
     name: "03708 中国近现代史纲要",
@@ -72,11 +72,11 @@ const Home = (props) => {
     setCollapse(value);
   };
 
-  const onJumpList = (item) => {
+  const onJumpList = (item, bigTitle) => {
     setActiveTitle(item.id);
     history.push({
       pathname: `${item.path}/${item.id}`,
-      search: encodeURIComponent(`title=${item.name}`),
+      search: encodeURIComponent(`title=${bigTitle}&name=${item.name}`),
     });
   };
 
@@ -99,7 +99,7 @@ const Home = (props) => {
                       color: child.id === activeKey ? "#f60" : "#4a25df",
                       padding: 5,
                     }}
-                    onClick={() => onJumpList(child)}
+                    onClick={() => onJumpList(child, route.name)}
                   >
                     {child.name}
                   </div>
@@ -117,7 +117,7 @@ const Home = (props) => {
                     color: route.id === activeKey ? "#f60" : "#333",
                     padding: 5,
                   }}
-                  onClick={() => onJumpList(route)}
+                  onClick={() => onJumpList(route, route.name)}
                 >
                   {route.name}
                 </div>

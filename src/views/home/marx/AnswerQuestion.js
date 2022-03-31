@@ -3,13 +3,13 @@ import { List, Typography } from "antd";
 import React from "react";
 
 const Wrap = (props) => {
-  const { title, questions } = props;
+  const { questions } = props;
   const formatExplanation = (str) => {
     const res = str.replace(/：/g, "：<br />").replace(/。/gi, "。<br />");
     return res;
   };
   return (
-    <List header={<h2>{title}</h2>}>
+    <List header={<h2 className="ui-ta-c">简答题</h2>}>
       {questions.map((item) => {
         return (
           <List.Item
