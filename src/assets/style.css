@@ -6,6 +6,13 @@ body,
 #root,
 .ant-layout.ant-layout-has-sider {
   height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+li {
+  list-style: none;
 }
 
 .layout-wrap {

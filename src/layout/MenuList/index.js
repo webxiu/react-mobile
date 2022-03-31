@@ -2,7 +2,7 @@ import { useHistory, useLocation } from "react-router";
 
 import React from "react";
 import { TabBar } from "antd-mobile";
-import { menus } from "../router";
+import { menus } from "../../router";
 
 const MenuList = (props) => {
     const history = useHistory();

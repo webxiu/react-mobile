@@ -14,13 +14,15 @@ const Maks = () => {
 			questions={marxObj[parmas.id].questions}
 		/>,
 		answer: <AnswerQuestion
-			title={marxObj.title}
+			title={marxObj[parmas.id].title}
 			questions={marxObj[parmas.id].questions}
 		/>,
 	}
 
 	return <NavBack>
-		{randerResult[marxObj[parmas.id].cate]}
+		<div style={{ marginBottom: 20 }}>
+			{randerResult[marxObj[parmas.id].cate]}
+		</div>
 	</NavBack >
 };
 

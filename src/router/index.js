@@ -5,12 +5,14 @@ import {
   UnorderedListOutline,
   UserOutline,
 } from "antd-mobile-icons";
+import React, { lazy } from "react";
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
 
 import { Badge } from "antd-mobile";
 import MenuList from "../layout/MenuList";
-import React from "react";
-import loadable from "@loadable/component";
+
+// 使用lazy才有 loading 效果
+// import loadable from "@loadable/component";
 
 /** 首页底部菜单 */
 export const menus = [
@@ -20,7 +22,7 @@ export const menus = [
     icon: <AppOutline />,
     badge: Badge.dot,
     show: true,
-    component: loadable(() =>
+    component: lazy(() =>
       import(/* webpackChunkName: 'index' */ "../views/home/home")
     ),
   },
@@ -30,7 +32,7 @@ export const menus = [
     icon: <UnorderedListOutline />,
     show: true,
     badge: "5",
-    component: loadable(() =>
+    component: lazy(() =>
       import(/* webpackChunkName: 'study' */ "../views/home/study")
     ),
   },
@@ -40,7 +42,7 @@ export const menus = [
     icon: (active) => (active ? <MessageFill /> : <MessageOutline />),
     badge: "99+",
     show: true,
-    component: loadable(() =>
+    component: lazy(() =>
       import(/* webpackChunkName: 'message' */ "../views/home/message")
     ),
   },
@@ -49,7 +51,7 @@ export const menus = [
     title: "个人中心",
     icon: <UserOutline />,
     show: true,
-    component: loadable(() =>
+    component: lazy(() =>
       import(/* webpackChunkName: 'personal' */ "../views/home/personal")
     ),
   },
@@ -58,15 +60,15 @@ export const menus = [
 /** 一级级路由 */
 export const RootRouter = withRouter(() => (
   <Switch>
-    <Route path="/marx/chapter/:id" component={loadable(() => import(/* webpackChunkName: 'marx' */ "../views/home/marx/chapter"))} />
-    <Route path="/login" component={loadable(() => import(/* webpackChunkName: 'login' */ "../views/login"))} />
+    <Route path="/marx/chapter/:id" component={lazy(() => import(/* webpackChunkName: 'marx' */ "../views/home/marx/chapter"))} />
+    <Route path="/login" component={lazy(() => import(/* webpackChunkName: 'login' */ "../views/login"))} />
     <MenuList>
       <Route
         path="/"
         render={() => (
           <Switch>
             <Redirect exact={true} from="/" to="/home/index" />
-            <Route path="/home" component={loadable(() => import(/* webpackChunkName: 'home' */ "../views/home/index"))} />
+            <Route path="/home" component={lazy(() => import(/* webpackChunkName: 'home' */ "../views/home/index"))} />
           </Switch>
         )}
       />

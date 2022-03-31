@@ -10,49 +10,48 @@ const Maks = (props) => {
     };
 
     return (
-        <List
-            header={<h2>{title}</h2>}
-            bordered
-            dataSource={questions}
-            renderItem={(item) => (
-                <List.Item>
-                    <div className="flex align-start">
-                        <Typography.Text mark>[{item.number}]</Typography.Text>
-                        <div style={{ fontSize: 14 }}>
-                            <div>{item.title.replace("（", "（ " + item.answer[0])}</div>
-                            <div>
-                                <Radio.Group value={item.answer[0]}>
-                                    <Space direction="vertical">
-                                        {item.options.map((c) => (
-                                            <Radio
-                                                key={c.value}
-                                                value={c.value}
-                                                style={{
-                                                    color: c.value === item.answer[0] ? "#18cf86" : "",
-                                                }}
-                                            >
-                                                {c.value} {c.text}
-                                            </Radio>
-                                        ))}
-                                    </Space>
-                                </Radio.Group>
+        <List header={<h2>{title}</h2>} style={{ '--border-top': '2px' }} >
+            {questions.map((item) => {
+                return (
+                    <List.Item key={item.id}>
+                        <div className="flex align-start mt20">
+                            <Typography.Text mark>[{item.number}]</Typography.Text>
+                            <div style={{ fontSize: 14 }}>
+                                <div>{item.title.replace("（", "（ " + item.answer[0])}</div>
+                                <div>
+                                    <Radio.Group value={item.answer[0]}>
+                                        <Space direction="vertical">
+                                            {item.options.map((c) => (
+                                                <Radio
+                                                    key={c.value}
+                                                    value={c.value}
+                                                    style={{
+                                                        color: c.value === item.answer[0] ? "#18cf86" : "",
+                                                    }}
+                                                >
+                                                    {c.value} {c.text}
+                                                </Radio>
+                                            ))}
+                                        </Space>
+                                    </Radio.Group>
+                                </div>
+                                {item.explanation ? (
+                                    <>
+                                        <h3 className="exp_desc">题解</h3>
+                                        <div
+                                            className="explanation"
+                                            dangerouslySetInnerHTML={{
+                                                __html: formatExplanation(item.explanation),
+                                            }}
+                                        />
+                                    </>
+                                ) : null}
                             </div>
-                            {item.explanation ? (
-                                <>
-                                    <h3 className="exp_desc">题解</h3>
-                                    <div
-                                        className="explanation"
-                                        dangerouslySetInnerHTML={{
-                                            __html: formatExplanation(item.explanation),
-                                        }}
-                                    />
-                                </>
-                            ) : null}
                         </div>
-                    </div>
-                </List.Item>
-            )}
-        />
+                    </List.Item>
+                );
+            })}
+        </List>
     );
 };
 
