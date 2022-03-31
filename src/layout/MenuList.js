@@ -9,7 +9,6 @@ const MenuList = (props) => {
     const location = useLocation();
 
     const onChange = (value) => {
-        console.log("value", value);
         history.push(value);
     };
     return (

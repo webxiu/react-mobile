@@ -16,10 +16,10 @@ const Maks = (props) => {
             dataSource={questions}
             renderItem={(item) => (
                 <List.Item>
-                    <div className="flex">
+                    <div className="flex align-start">
                         <Typography.Text mark>[{item.number}]</Typography.Text>
                         <div style={{ fontSize: 14 }}>
-                            <h4>{item.title.replace("（", "（ " + item.answer[0])}</h4>
+                            <div>{item.title.replace("（", "（ " + item.answer[0])}</div>
                             <div>
                                 <Radio.Group value={item.answer[0]}>
                                     <Space direction="vertical">

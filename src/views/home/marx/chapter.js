@@ -1,6 +1,6 @@
 import AnswerQuestion from "./AnswerQuestion";
 import ChoiceQuestion from "./ChoiceQuestion";
-import NavBack from '../../../components/NavBack'
+import NavBack from '../../../layout/NavBack'
 import React from "react";
 import { marxObj } from "../../../config";
 import { useParams } from "react-router";

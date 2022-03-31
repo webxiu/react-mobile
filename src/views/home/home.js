@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { getCollapse, setCollapse } from '../../utils/storage'
 
 import { Collapse } from "antd-mobile";
 import MenuList from '../../layout/MenuList'
 import { NavLink } from "react-router-dom";
 import { routerList } from "../../config";
-
-const __collapse = "__collapse"
 
 const extArr = [
 	1732, 542, 544, 1165, 545, 1166, 515, 516, 523, 524, 525, 526, 527, 1017,
@@ -24,7 +23,7 @@ const marxChildren = routerList.results
 
 const Home = (props) => {
 
-	const [isCollapse, setIsCollapse] = useState('')
+	const [isCollapse, setIsCollapse] = useState()
 
 	const marxList = [
 		{
@@ -56,24 +55,14 @@ const Home = (props) => {
 	];
 
 	useEffect(() => {
-		const coll = localStorage.getItem(__collapse)
+		const coll = getCollapse()
 		setIsCollapse(coll)
-
 	}, [])
-
-	useEffect(() => {
-		return () => {
-			localStorage.setItem(__collapse, isCollapse)
-		}
-	}, [isCollapse])
-
 
 	const onChange = (value) => {
 		setIsCollapse(value)
-		localStorage.setItem(__collapse, value)
+		setCollapse(value)
 	}
-
-	console.log('marxChildren', marxChildren)
 
 	return (
 		<MenuList>
@@ -92,7 +81,7 @@ const Home = (props) => {
 										className="ellipsis"
 										to={child.path + '/' + child.id}
 										activeStyle={{ color: "#f60" }}
-										style={{ textDecoration: "none", color: "inherit" }}
+										style={{ textDecoration: "none", color: "#4a25df", padding: 5 }}
 									>
 										{child.name}
 									</NavLink>

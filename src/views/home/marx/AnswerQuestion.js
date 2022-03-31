@@ -16,10 +16,10 @@ const Wrap = (props) => {
             dataSource={questions}
             renderItem={(item) => (
                 <List.Item>
-                    <div className="flex">
+                    <div className="flex align-start">
                         <Typography.Text mark>[{item.number}]</Typography.Text>
                         <div style={{ fontSize: 14 }}>
-                            <h4>{item.title}</h4>
+                            <div>{item.title}</div>
                             <h3 className="exp_desc">答案</h3>
                             <div
                                 className="answer"

@@ -1,7 +1,7 @@
 import { Button, Dialog, } from "antd-mobile";
 
 import React from 'react'
-import { getUserInfo } from '../../../utils'
+import { removeUserInfo } from '../../../utils/storage'
 import { useHistory } from 'react-router'
 
 const Personal = () => {
@@ -9,7 +9,7 @@ const Personal = () => {
     const logout = async () => {
         const res = await Dialog.confirm({ content: '确认退出吗?' })
         if (res) {
-            getUserInfo()
+            removeUserInfo()
             history.replace('/login')
         }
     }

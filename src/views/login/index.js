@@ -1,7 +1,7 @@
 import { Button, Dialog, Form, Input } from "antd-mobile";
 
 import React from "react";
-import { setUserInfo } from "../../utils";
+import { setUserInfo } from "../../utils/storage";
 import { useHistory } from "react-router";
 
 export default (props) => {
@@ -14,7 +14,7 @@ export default (props) => {
         console.log("onFinish", values);
         const value = form.getFieldsValue();
         if (value.password !== "123456") {
-            Dialog.alert({ content: "密码错误" });
+            Dialog.alert({ content: "密码错误!" });
             return;
         }
         console.log("value", value);
@@ -31,10 +31,18 @@ export default (props) => {
                 initialValues={{ username: "admin" }}
             >
                 <Form.Header>用户登录</Form.Header>
-                <Form.Item label="用户名" name="username">
-                    <Input placeholder="请输入用户名" />
+                <Form.Item
+                    label="用户名"
+                    name="username"
+                    rules={[{ required: true, message: "请输入用户名!" }]}
+                >
+                    <Input placeholder="admin" />
                 </Form.Item>
-                <Form.Item label="密码" name="password">
+                <Form.Item
+                    label="密码"
+                    name="password"
+                    rules={[{ required: true, message: "密码不能为空!" }]}
+                >
                     <Input type="password" placeholder="123456" />
                 </Form.Item>
                 <Button
