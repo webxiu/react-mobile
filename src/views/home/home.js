@@ -42,10 +42,11 @@ const marxList = [
       "中国近现代史（03708）是高等教育自学考试各专业本科阶段的一门公共基础课。本课程共11章内容，重点在第1章、第2章、第3章、第5章、第6章、第8章、第11章；次重点在第4章、第7章、第9章、第10章。",
   },
   {
-    path: "/think-society/",
+    path: "/marx/think",
     children: [
       {
-        path: "/think-society/chapter1",
+        id: 12656,
+        path: "/marx/chapter",
         name: "绪论 毛泽东思想和中国特色社会主义思想概论",
       },
     ],

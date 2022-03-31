@@ -42,3 +42,8 @@ export const debounce = (func, wait = 120) => {
     timer = setTimeout(func.bind(null, ...args), wait);
   };
 };
+
+/** 范围随机 */
+export const rangeRandom = (start, end) => {
+  return parseInt(Math.random() * (start - end + 1) + end);
+};
