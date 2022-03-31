@@ -28,7 +28,7 @@ export default (props) => {
                 layout="horizontal"
                 mode="card"
                 onFinish={onFinish}
-                initialValues={{ username: "admin" }}
+                initialValues={{ username: "admin", password: 123456 }}
             >
                 <Form.Header>用户登录</Form.Header>
                 <Form.Item
