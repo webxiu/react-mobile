@@ -5,7 +5,7 @@ import {
   UnorderedListOutline,
   UserOutline,
 } from "antd-mobile-icons";
-import { Redirect, Route, Switch, } from "react-router-dom";
+import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
 
 import { Badge } from "antd-mobile";
 import MenuList from "../layout/MenuList";
@@ -55,11 +55,8 @@ export const menus = [
   },
 ];
 
-
-
-
 /** 一级级路由 */
-export const RootRouter = () => (
+export const RootRouter = withRouter(() => (
   <Switch>
     <Route path="/marx/chapter/:id" component={loadable(() => import(/* webpackChunkName: 'marx' */ "../views/home/marx/chapter"))} />
     <Route path="/login" component={loadable(() => import(/* webpackChunkName: 'login' */ "../views/login"))} />
@@ -70,16 +67,16 @@ export const RootRouter = () => (
           <Switch>
             <Redirect exact={true} from="/" to="/home/index" />
             <Route path="/home" component={loadable(() => import(/* webpackChunkName: 'home' */ "../views/home/index"))} />
-            <Route component={<div>404</div>} />
           </Switch>
         )}
       />
     </MenuList>
+    <Route path={'*'} render={() => <div>404全局</div>} />
   </Switch>
-);
+));
 
 /** 菜单路由 */
-export const MenuRouter = () => {
+export const MenuRouter = withRouter(() => {
   return (
     <Switch>
       {menus.map((route, idx) =>
@@ -90,8 +87,8 @@ export const MenuRouter = () => {
           render={(props) => (<route.component {...props} router={route.routes} />)}
         />
       )}
-      <Route component={<div>404</div>} />
+      <Route path="*" render={() => <div>404菜单</div>} />
       {/* <Redirect from="/" to="/hacker" exact={true} /> */}
     </Switch>
   );
-};
+});

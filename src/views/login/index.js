@@ -1,54 +1,46 @@
-import React, {
-    forwardRef,
-    useEffect,
-    useImperativeHandle,
-    useRef,
-} from 'react'
+import { Button, Dialog, Form, Input, Space } from "antd-mobile";
+import React, { useEffect, useState } from "react";
 
-import { useState } from 'react'
+import { useHistory } from "react-router";
 
-const Input = (props, ref) => {
-    const refInput = useRef()
-    useImperativeHandle(ref, () => ({
-        focus: () => { refInput.current.focus() }
-    }), [])
+export default (props) => {
+    console.log("props", props);
+    const history = useHistory();
 
-    useEffect(() => {
-        refInput.current.value = props.initVlue
-    }, [props.initVlue])
+    const [form] = Form.useForm()
 
-    return <input
-        onChange={(e) => {
-            props.onChange(e.target.value)
-        }}
-        ref={refInput}
-    />
-
-}
-
-const Minput = forwardRef(Input)
-
-
-export default () => {
-    const re = useRef()
-    const [num, setNum] = useState(1)
+    const onFinish = (values) => {
+        console.log('onFinish', values)
+        const value = form.getFieldsValue();
+        if (value.password !== '123456') {
+            Dialog.alert({
+                // confirmText: '确定',
+                // content: JSON.stringify(value),
+                content: '密码错误',
+            })
+            return
+        }
+        history.replace("/")
+    }
     return (
         <div>
-            <Minput
-                ref={re}
-                initVlue={'hello'}
-                onChange={(x) => {
-                    console.log('onChange', x)
-                }}
-            />
-            <button onClick={() => {
-                re.current.focus()
-            }}>获取焦点</button>
-
-            <button onClick={() => setNum((value) => ++value)}>累加{num}</button>
-
-
-
+            <Form form={form}
+                layout="horizontal"
+                mode="card"
+                onFinish={onFinish}
+                initialValues={{ username: 'admin' }}
+            >
+                <Form.Header>用户登录</Form.Header>
+                <Form.Item label="用户名" name="username">
+                    <Input placeholder="请输入用户名" />
+                </Form.Item>
+                <Form.Item label="密码" name="password">
+                    <Input type='password' placeholder="123456" />
+                </Form.Item>
+                <Button block color="primary" type='submit' size="large" style={{ marginTop: 20 }}>
+                    提交
+                </Button>
+            </Form>
         </div>
-    )
-}
+    );
+};
