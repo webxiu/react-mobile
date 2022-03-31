@@ -1,4 +1,4 @@
-import { List, Space, Typography } from "antd";
+import { List, Typography } from "antd";
 
 import React from "react";
 
