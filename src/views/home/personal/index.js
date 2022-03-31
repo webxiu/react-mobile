@@ -31,7 +31,7 @@ const Personal = () => {
                 height={40}
               />
             }
-            description={"反馈联系QQ: 759430324"}
+            description={"联系QQ: 759430324"}
           >
             Hailen
           </List.Item>
