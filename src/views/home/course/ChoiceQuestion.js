@@ -22,24 +22,26 @@ const Maks = (props) => {
                 <div style={{ fontWeight: 700 }}>
                   {item.title.replace("（", "（ " + item.answer[0])}
                 </div>
-                <Radio.Group value={item.answer[0]}>
-                  <Space direction="vertical">
-                    {item.options.map((c) => (
-                      <Radio
-                        key={c.value}
-                        value={c.value}
-                        style={{
-                          "--icon-size": "18px",
-                          "--font-size": "14px",
-                          "--gap": "6px",
-                          color: c.value === item.answer[0] ? "#18cf86" : "",
-                        }}
-                      >
-                        {c.value} {c.text}
-                      </Radio>
-                    ))}
-                  </Space>
-                </Radio.Group>
+                <div className="mt10">
+                  <Radio.Group value={item.answer[0]}>
+                    <Space direction="vertical">
+                      {item.options.map((c) => (
+                        <Radio
+                          key={c.value}
+                          value={c.value}
+                          style={{
+                            "--icon-size": "18px",
+                            "--font-size": "14px",
+                            "--gap": "6px",
+                            color: c.value === item.answer[0] ? "#18cf86" : "",
+                          }}
+                        >
+                          {c.value} {c.text}
+                        </Radio>
+                      ))}
+                    </Space>
+                  </Radio.Group>
+                </div>
                 {item.explanation ? (
                   <>
                     <div className="exp_desc">题解</div>
