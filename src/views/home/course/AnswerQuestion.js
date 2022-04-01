@@ -1,5 +1,4 @@
-import { List, Typography } from "antd";
-
+import { List } from "antd-mobile";
 import React from "react";
 
 const Wrap = (props) => {
@@ -9,15 +8,17 @@ const Wrap = (props) => {
     return res;
   };
   return (
-    <List header={<h2 className="ui-ta-c">简答题</h2>}>
+    <List header={<h3 className="ui-ta-c">简答题</h3>}>
       {questions.map((item) => {
         return (
-          <List.Item key={item.id} style={{ "--border-top": "2px" }}>
+          <List.Item key={item.id}>
             <div className="flex align-start">
-              <Typography.Text mark>[{item.number}]</Typography.Text>
+              <span style={{ background: "#ffff00", color: "#333" }}>
+                [{item.number}]
+              </span>
               <div style={{ fontSize: 14 }}>
                 <div style={{ fontWeight: 700 }}>{item.title}</div>
-                <h3 className="exp_desc">答案</h3>
+                <div className="exp_desc">答案</div>
                 <div
                   className="answer"
                   dangerouslySetInnerHTML={{
@@ -28,7 +29,7 @@ const Wrap = (props) => {
                 ></div>
                 {item.explanation ? (
                   <>
-                    <h3 className="exp_desc">题解</h3>
+                    <div className="exp_desc">题解</div>
                     <div
                       className="explanation"
                       dangerouslySetInnerHTML={{

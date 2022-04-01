@@ -1,4 +1,4 @@
-import { List, Radio, Space, Typography } from "antd";
+import { List, Radio, Space } from "antd-mobile";
 
 import React from "react";
 
@@ -10,36 +10,39 @@ const Maks = (props) => {
   };
 
   return (
-    <List header={<h2 className="ui-ta-c">选择题</h2>}>
+    <List header={<h3 className="ui-ta-c">选择题</h3>}>
       {questions.map((item) => {
         return (
-          <List.Item key={item.id} style={{ "--border-top": "2px" }}>
-            <div className="flex align-start mt20">
-              <Typography.Text mark>[{item.number}]</Typography.Text>
+          <List.Item key={item.id}>
+            <div className="flex align-start">
+              <span style={{ background: "#ffff00", color: "#333" }}>
+                [{item.number}]
+              </span>
               <div style={{ fontSize: 14 }}>
                 <div style={{ fontWeight: 700 }}>
                   {item.title.replace("（", "（ " + item.answer[0])}
                 </div>
-                <div>
-                  <Radio.Group value={item.answer[0]}>
-                    <Space direction="vertical">
-                      {item.options.map((c) => (
-                        <Radio
-                          key={c.value}
-                          value={c.value}
-                          style={{
-                            color: c.value === item.answer[0] ? "#18cf86" : "",
-                          }}
-                        >
-                          {c.value} {c.text}
-                        </Radio>
-                      ))}
-                    </Space>
-                  </Radio.Group>
-                </div>
+                <Radio.Group value={item.answer[0]}>
+                  <Space direction="vertical">
+                    {item.options.map((c) => (
+                      <Radio
+                        key={c.value}
+                        value={c.value}
+                        style={{
+                          "--icon-size": "18px",
+                          "--font-size": "14px",
+                          "--gap": "6px",
+                          color: c.value === item.answer[0] ? "#18cf86" : "",
+                        }}
+                      >
+                        {c.value} {c.text}
+                      </Radio>
+                    ))}
+                  </Space>
+                </Radio.Group>
                 {item.explanation ? (
                   <>
-                    <h3 className="exp_desc">题解</h3>
+                    <div className="exp_desc">题解</div>
                     <div
                       className="explanation"
                       dangerouslySetInnerHTML={{
