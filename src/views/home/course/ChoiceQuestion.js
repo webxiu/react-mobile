@@ -17,7 +17,9 @@ const Maks = (props) => {
             <div className="flex align-start mt20">
               <Typography.Text mark>[{item.number}]</Typography.Text>
               <div style={{ fontSize: 14 }}>
-                <div>{item.title.replace("（", "（ " + item.answer[0])}</div>
+                <div style={{ fontWeight: 700 }}>
+                  {item.title.replace("（", "（ " + item.answer[0])}
+                </div>
                 <div>
                   <Radio.Group value={item.answer[0]}>
                     <Space direction="vertical">

@@ -16,7 +16,7 @@ const Wrap = (props) => {
             <div className="flex align-start">
               <Typography.Text mark>[{item.number}]</Typography.Text>
               <div style={{ fontSize: 14 }}>
-                <div>{item.title}</div>
+                <div style={{ fontWeight: 700 }}>{item.title}</div>
                 <h3 className="exp_desc">答案</h3>
                 <div
                   className="answer"

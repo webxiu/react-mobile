@@ -61,9 +61,9 @@ export const menus = [
 export const RootRouter = withRouter(() => (
   <Switch>
     <Route
-      path="/marx/chapter/:id"
+      path="/course/subject/:id"
       component={lazy(() =>
-        import(/* webpackChunkName: 'marx' */ "../views/home/marx/chapter")
+        import(/* webpackChunkName: 'marx' */ "../views/home/course/subject")
       )}
     />
     <Route

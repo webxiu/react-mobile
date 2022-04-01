@@ -6,6 +6,9 @@ import AnswerQuestion from "./AnswerQuestion";
 import ChoiceQuestion from "./ChoiceQuestion";
 import NavBack from "../../../layout/NavBack";
 import React from "react";
+// 近代史
+import { historyObj } from "../../../data/history";
+// 马克思
 import { marxObj } from "../../../data/marx";
 
 const descList = [
@@ -19,23 +22,30 @@ const descList = [
   "与其临渊羡鱼, 不如退而结网",
 ];
 
+const classCate = {
+  marx: marxObj,
+  history: historyObj,
+};
+
 const Maks = () => {
   const parmas = useParams();
   const location = useLocation();
   const query = getURLParameters(decodeURIComponent(location.search));
-  const hacCate = marxObj[parmas.id]; // 是否存在分类题库
+  console.log("id:", parmas.id, "==query:", query);
+  const resultObj = classCate[query.course];
+  const hacCate = resultObj[parmas.id]; // 是否存在分类题库
 
   const randerResult = hacCate && {
     chioce: (
       <ChoiceQuestion
-        title={marxObj[parmas.id].title}
-        questions={marxObj[parmas.id].questions}
+        title={resultObj[parmas.id].title}
+        questions={resultObj[parmas.id].questions}
       />
     ),
     answer: (
       <AnswerQuestion
-        title={marxObj[parmas.id].title}
-        questions={marxObj[parmas.id].questions}
+        title={resultObj[parmas.id].title}
+        questions={resultObj[parmas.id].questions}
       />
     ),
   };
@@ -44,7 +54,7 @@ const Maks = () => {
     <NavBack query={query}>
       <div style={{ margin: "0 15px 20px" }}>
         {hacCate ? (
-          randerResult[marxObj[parmas.id].cate]
+          randerResult[resultObj[parmas.id].cate]
         ) : (
           <Result
             status="info"
