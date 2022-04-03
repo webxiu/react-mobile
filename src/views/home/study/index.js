@@ -121,7 +121,7 @@ const Study = () => {
                         style={{ padding: 0, width: "75%" }}
                         className="ellipsis"
                       >
-                        {item.bigTitle}
+                        {item.title}
                       </h4>
                       <DeleteOutline
                         onClick={onDelete.bind(null, item)}
