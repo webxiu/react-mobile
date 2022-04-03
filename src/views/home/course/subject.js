@@ -1,5 +1,5 @@
 import { Divider, Result, Toast } from "antd-mobile";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { getURLParameters, rangeRandom } from "../../../utils";
 import { getViewPos, setViewPos } from "../../../utils/storage";
 import { useLocation, useParams } from "react-router";
@@ -26,15 +26,10 @@ const descList = [
   "与其临渊羡鱼, 不如退而结网",
 ];
 
-const classCate = {
-  marx: marxObj,
-  history: historyObj,
-  society: societyObj,
-};
+const classCate = { marx: marxObj, history: historyObj, society: societyObj };
 
 const Maks = () => {
   const posRef = useRef(null);
-  const [top, setTop] = useState(0);
   const parmas = useParams();
   const location = useLocation();
   const query = getURLParameters(decodeURIComponent(location.search));
@@ -69,14 +64,12 @@ const Maks = () => {
 
   const onScroll = throttle((e) => {
     const { scrollTop } = e.target;
-    setTop(scrollTop);
     setViewPos({ id: parmas.id, pos: scrollTop, name: query.name });
   }, 300);
 
   // NavBack高度83px
   return (
     <NavBack query={query}>
-      <div style={{ position: "absolute", top: 0, zIndex: 9999999 }}>{top}</div>
       <div
         className="flex-col ui-h-100"
         style={{ marginTop: 83, overflowY: "auto" }}

@@ -10,10 +10,12 @@ import ReactDOM from "react-dom";
 import { RootRouter } from "./router";
 import RouterWrapSpin from "./layout/Spin";
 import { isPc } from "./utils";
+import { setUserInfo } from "./utils/storage";
 import store from "./redux/store";
 
 const Root = () => {
   console.log("client:", isPc());
+  setUserInfo({ device: isPc() });
 
   return (
     <BrowserRouter>

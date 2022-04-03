@@ -6,8 +6,13 @@ const __view_pos = "__view_pos__";
 /** 保存用户名和密码 */
 export const getUserInfo = () =>
   JSON.parse(localStorage.getItem(__userinfo) || "{}");
-export const setUserInfo = (userinfo) =>
-  localStorage.setItem(__userinfo, JSON.stringify(userinfo));
+export const setUserInfo = (userinfo) => {
+  const userInfo = getUserInfo();
+  localStorage.setItem(
+    __userinfo,
+    JSON.stringify({ ...userInfo, ...userinfo })
+  );
+};
 export const removeUserInfo = () => localStorage.removeItem(__userinfo);
 
 /** 保存菜单展开 */
@@ -27,8 +32,6 @@ export const getViewPos = (articleId) => {
   const pos = articleId ? posObj[articleId] : posObj;
   return pos;
 };
-
-// 记录用户行为
 export const setViewPos = ({ articleId, pos, name, ...rest }) => {
   const posObj = getViewPos();
   const newObj = { ...posObj, [articleId]: { pos, name, ...rest } };
