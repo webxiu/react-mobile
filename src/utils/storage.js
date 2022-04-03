@@ -32,9 +32,9 @@ export const getViewPos = (articleId) => {
   const pos = articleId ? posObj[articleId] : posObj;
   return pos;
 };
-export const setViewPos = ({ articleId, pos, name, ...rest }) => {
+export const setViewPos = ({ id, pos, name, ...rest }) => {
   const posObj = getViewPos();
-  const newObj = { ...posObj, [articleId]: { pos, name, ...rest } };
+  const newObj = { ...posObj, [id]: { pos, name, ...rest } };
   localStorage.setItem(__view_pos, JSON.stringify(newObj));
 };
 export const removeViewPos = () => localStorage.removeItem(__view_pos);

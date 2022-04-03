@@ -30,8 +30,7 @@ const historyChildren = historyRouterList.results
   }));
 
 // 2.毛概
-// const societyFilterArr = [1343, 1018, 1019, 1328, 1329, 1643, 1743];
-const societyFilterArr = [1343, 1018, 1019];
+const societyFilterArr = [1343, 1018, 1019, 1328, 1329, 1643, 1743];
 const societyChildren = societyRouterList.results
   .filter((f) => !societyFilterArr.includes(f.id))
   .map(({ title, id }) => ({
