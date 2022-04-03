@@ -2,14 +2,15 @@ import { NavBar, NoticeBar, Popover, Space } from "antd-mobile";
 
 import { AppstoreOutline } from "antd-mobile-icons";
 import React from "react";
+import { useAuth } from "../../router/useAuth";
 import { useHistory } from "react-router";
 
 const NavBack = (props) => {
   const { query } = props;
   const history = useHistory();
-  const back = () => {
-    history.goBack();
-  };
+  useAuth();
+
+  const back = () => history.goBack();
 
   const right = (
     <div style={{ fontSize: 24 }}>
