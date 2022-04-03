@@ -1,7 +1,4 @@
-import "./index.css";
-
 import { NavBar, NoticeBar, Popover, Space } from "antd-mobile";
-import { isPc, throttle } from "../../utils";
 
 import { AppstoreOutline } from "antd-mobile-icons";
 import React from "react";
@@ -10,18 +7,6 @@ import { useHistory } from "react-router";
 const NavBack = (props) => {
   const { query } = props;
   const history = useHistory();
-  const client = isPc();
-  console.log("query", client, query);
-
-  const onScroll = throttle((e) => {
-    console.log("onScroll", e.target.scrollTop);
-    // const { offsetHeight, scrollTop, scrollHeight } = e.target;
-    // if (scrollTop + offsetHeight === scrollHeight && loadMore) {
-    //   setLoadMore(false);
-    //   setQueryParams((x) => ({ ...x, page: x.page + 1, type: 1 }));
-    // }
-  }, 500);
-
   const back = () => {
     history.goBack();
   };
@@ -36,8 +21,18 @@ const NavBack = (props) => {
   );
 
   return (
-    <div className="flex-col nav-wrap">
-      <div className="head-nav-bar">
+    <div className="flex-col ui-h-100 ui-p-r">
+      <div
+        className="head-nav-bar"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          zIndex: 9999,
+          width: "100%",
+          background: "#fff",
+        }}
+      >
         <NavBar back={"返回"} backArrow={true} right={right} onBack={back}>
           <Popover content={query.title} trigger="click" placement="bottomLeft">
             <span>{query.title}</span>
@@ -45,9 +40,7 @@ const NavBack = (props) => {
         </NavBar>
         <NoticeBar content={query.name} color="alert" />
       </div>
-      <div className="flex-1 ui-ovy-a">
-        <div onScroll={onScroll}>{props.children}</div>
-      </div>
+      {props.children}
     </div>
   );
 };

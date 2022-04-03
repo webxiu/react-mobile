@@ -521,7 +521,7 @@ export const marxRouterList = {
   ],
 };
 
-/** cate data */
+/** 详情显示数据 */
 export const marxObj = {
   // 绪论 马克思主义是关于工人阶级和人类解放的科学（客观）
   11: {

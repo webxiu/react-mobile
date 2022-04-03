@@ -1,15 +1,19 @@
-import { Divider, Result } from "antd-mobile";
+import { Divider, Result, Toast } from "antd-mobile";
+import React, { useEffect, useRef, useState } from "react";
 import { getURLParameters, rangeRandom } from "../../../utils";
+import { getViewPos, setViewPos } from "../../../utils/storage";
 import { useLocation, useParams } from "react-router";
 
 import AnswerQuestion from "./AnswerQuestion";
 import ChoiceQuestion from "./ChoiceQuestion";
 import NavBack from "../../../layout/NavBack";
-import React from "react";
 // 近代史
 import { historyObj } from "../../../data/history";
 // 马克思
 import { marxObj } from "../../../data/marx";
+// 毛概
+import { societyObj } from "../../../data/society";
+import { throttle } from "../../../utils";
 
 const descList = [
   "书到用时方恨少, 学到天明不是梦",
@@ -25,13 +29,15 @@ const descList = [
 const classCate = {
   marx: marxObj,
   history: historyObj,
+  society: societyObj,
 };
 
 const Maks = () => {
+  const posRef = useRef(null);
+  const [top, setTop] = useState(0);
   const parmas = useParams();
   const location = useLocation();
   const query = getURLParameters(decodeURIComponent(location.search));
-  console.log("id:", parmas.id, "==query:", query);
   const resultObj = classCate[query.course];
   const hacCate = resultObj[parmas.id]; // 是否存在分类题库
 
@@ -50,27 +56,53 @@ const Maks = () => {
     ),
   };
 
+  useEffect(() => {
+    const res = getViewPos(parmas.id);
+    if (!posRef.current || !res) return;
+    posRef.current.scrollTop = res.pos;
+    Toast.show({
+      duration: 2000,
+      position: "top",
+      content: "已回到上次浏览位置",
+    });
+  }, [posRef, parmas]);
+
+  const onScroll = throttle((e) => {
+    const { scrollTop } = e.target;
+    setTop(scrollTop);
+    setViewPos({ id: parmas.id, pos: scrollTop, name: query.name });
+  }, 300);
+
+  // NavBack高度83px
   return (
     <NavBack query={query}>
-      <div style={{ margin: "0 15px 20px" }}>
-        {hacCate ? (
-          randerResult[resultObj[parmas.id].cate]
-        ) : (
-          <Result
-            status="info"
-            title="暂无数据"
-            description={descList[rangeRandom(0, descList.length - 1)]}
-          />
-        )}
-        <Divider
-          style={{
-            color: "#1677ff",
-            borderColor: "#1677ff",
-            borderStyle: "dashed",
-          }}
-        >
-          没有更多了
-        </Divider>
+      <div style={{ position: "absolute", top: 0, zIndex: 9999999 }}>{top}</div>
+      <div
+        className="flex-col ui-h-100"
+        style={{ marginTop: 83, overflowY: "auto" }}
+        onScroll={onScroll}
+        ref={posRef}
+      >
+        <div className="flex-1" style={{ margin: "0 10px" }}>
+          {hacCate ? (
+            randerResult[resultObj[parmas.id].cate]
+          ) : (
+            <Result
+              status="info"
+              title="暂无数据"
+              description={descList[rangeRandom(0, descList.length - 1)]}
+            />
+          )}
+          <Divider
+            style={{
+              color: "#1677ff",
+              borderColor: "#1677ff",
+              borderStyle: "dashed",
+            }}
+          >
+            没有更多了
+          </Divider>
+        </div>
       </div>
     </NavBack>
   );

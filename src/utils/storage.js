@@ -1,6 +1,7 @@
 const __userinfo = "__userinfo__";
 const __collapse = "__collapse__";
 const __activeKey = "__activeKey__";
+const __view_pos = "__view_pos__";
 
 /** 保存用户名和密码 */
 export const getUserInfo = () =>
@@ -19,3 +20,18 @@ export const removeCollapse = () => localStorage.removeItem(__collapse);
 export const getActiveTitle = () => Number(localStorage.getItem(__activeKey));
 export const setActiveTitle = (id) => localStorage.setItem(__activeKey, id);
 export const removeActiveTitle = () => localStorage.removeItem(__activeKey);
+
+/** 根据文章id存储浏览位置 */
+export const getViewPos = (articleId) => {
+  const posObj = JSON.parse(localStorage.getItem(__view_pos) || "{}");
+  const pos = articleId ? posObj[articleId] : posObj;
+  return pos;
+};
+
+// 记录用户行为
+export const setViewPos = ({ articleId, pos, name, ...rest }) => {
+  const posObj = getViewPos();
+  const newObj = { ...posObj, [articleId]: { pos, name, ...rest } };
+  localStorage.setItem(__view_pos, JSON.stringify(newObj));
+};
+export const removeViewPos = () => localStorage.removeItem(__view_pos);

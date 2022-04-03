@@ -9,23 +9,26 @@ import { Provider } from "react-redux";
 import ReactDOM from "react-dom";
 import { RootRouter } from "./router";
 import RouterWrapSpin from "./layout/Spin";
+import { isPc } from "./utils";
 import store from "./redux/store";
 
 const Root = () => {
-    return (
-        <BrowserRouter>
-            <Suspense fallback={<RouterWrapSpin />}>
-                <RootRouter />
-            </Suspense>
-        </BrowserRouter>
-    );
+  console.log("client:", isPc());
+
+  return (
+    <BrowserRouter>
+      <Suspense fallback={<RouterWrapSpin />}>
+        <RootRouter />
+      </Suspense>
+    </BrowserRouter>
+  );
 };
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Root />
-    </Provider>,
-    document.getElementById("root")
+  <Provider store={store}>
+    <Root />
+  </Provider>,
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
