@@ -155,6 +155,16 @@
   color: #fff;
 }
 
+.fz12 {
+  font-size: 12px;
+}
+.fz14 {
+  font-size: 14px;
+}
+
+.mt5 {
+  margin-top: 5px;
+}
 .mt10 {
   margin-top: 10px;
 }
@@ -165,6 +175,12 @@
   margin-top: 20px;
 }
 
+.mr10 {
+  margin-right: 10px;
+}
+.mr20 {
+  margin-right: 20px;
+}
 .ml15 {
   margin-left: 15px;
 }

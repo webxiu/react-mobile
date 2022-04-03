@@ -4,6 +4,7 @@ import {
   getCollapse,
   setActiveTitle,
   setCollapse,
+  setHistory,
 } from "../../utils/storage";
 
 import { Collapse } from "antd-mobile";
@@ -28,19 +29,33 @@ const Home = (props) => {
     setCollapse(value);
   };
 
-  const onJumpList = (item, parentPath, bigTitle) => {
+  const onJumpList = (item, parentPath, title) => {
     setActiveTitle(item.id);
-    history.push({
-      pathname: `${item.path}/${item.id}`,
-      search: encodeURIComponent(
-        `course=${parentPath}&title=${bigTitle}&name=${item.name}`
-      ),
+    const pathname = `${item.path}/${item.id}`;
+    const search = `course=${parentPath}&title=${title}&name=${item.name}`;
+    const link = pathname + "?" + encodeURIComponent(search);
+    const cate =
+      item.name.search("客观") !== -1
+        ? "选择题"
+        : item.name.search("主观") !== -1
+        ? "简答题"
+        : "其他";
+
+    history.push({ pathname, search: encodeURIComponent(search) });
+    setHistory({
+      id: item.id,
+      cate,
+      name: item.name,
+      title,
+      time: Date.now(),
+      link,
     });
   };
 
   return (
     <MenuList>
       {props.children}
+      <h3 style={{ margin: 10 }}>考试科目</h3>
       <Collapse accordion={true} onChange={onChange} activeKey={isCollapse}>
         {contentsList.map((route) => {
           if (route.hidden) return null;

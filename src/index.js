@@ -1,21 +1,30 @@
-import "./assets/style.css";
+import "./assets/css/style.css";
 
 import * as serviceWorker from "./serviceWorker";
 
 import React, { Suspense } from "react";
+import { getUserInfo, setUserInfo } from "./utils/storage";
 
 import { BrowserRouter } from "react-router-dom";
+import { Dialog } from "antd-mobile";
 import { Provider } from "react-redux";
 import ReactDOM from "react-dom";
 import { RootRouter } from "./router";
 import RouterWrapSpin from "./layout/Spin";
 import { isPc } from "./utils";
-import { setUserInfo } from "./utils/storage";
 import store from "./redux/store";
+import { useHistory } from "react-router";
 
 const Root = () => {
-  console.log("client:", isPc());
   setUserInfo({ device: isPc() });
+  const history = useHistory();
+  const userInfo = getUserInfo();
+
+  if (!userInfo.username || !userInfo.password) {
+    Dialog.alert({ content: "请先登录!" }).then(() => {
+      history.replace("/login");
+    });
+  }
 
   return (
     <BrowserRouter>

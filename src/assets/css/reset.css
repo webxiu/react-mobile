@@ -1,11 +1,11 @@
-@import "./common.css";
-@import "./antd-theme.css";
-
-html,
-body,
-#root,
-.ant-layout.ant-layout-has-sider {
-  height: 100%;
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   margin: 0;
   padding: 0;
 }
@@ -13,58 +13,6 @@ body,
 ul,
 li {
   list-style: none;
-}
-
-.layout-wrap {
-  flex: 1;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  padding-bottom: 50px;
-}
-.menu-list {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 50px;
-  z-index: 9999;
-  background: #fff;
-}
-
-.ant-layout-content {
-  overflow: auto;
-  flex: 1;
-}
-
-.bg-white {
-  background: #fff;
-}
-
-div.exp_desc {
-  position: relative;
-  padding-left: 12px;
-  margin-top: 10px;
-  font-weight: 700;
-  margin-bottom: 5px;
-}
-div.exp_desc:before {
-  position: absolute;
-  display: inline-block;
-  content: "";
-  height: 1em;
-  width: 4px;
-  margin: 1px 10px 0 0;
-  background-color: #930a41;
-  left: 0px;
-  top: 2px;
-}
-.answer {
-  color: #18cf86;
-}
-.explanation {
-  color: #6970ca;
 }
 
 /*
