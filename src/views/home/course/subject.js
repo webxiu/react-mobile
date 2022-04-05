@@ -35,20 +35,11 @@ const Maks = () => {
   const query = getURLParameters(decodeURIComponent(location.search));
   const resultObj = classCate[query.course];
   const hacCate = resultObj[parmas.id]; // 是否存在分类题库
+  const contentRef = useRef(null);
 
   const randerResult = hacCate && {
-    chioce: (
-      <ChoiceQuestion
-        title={resultObj[parmas.id].title}
-        questions={resultObj[parmas.id].questions}
-      />
-    ),
-    answer: (
-      <AnswerQuestion
-        title={resultObj[parmas.id].title}
-        questions={resultObj[parmas.id].questions}
-      />
-    ),
+    chioce: <ChoiceQuestion title={resultObj[parmas.id].title} questions={resultObj[parmas.id].questions} />,
+    answer: <AnswerQuestion title={resultObj[parmas.id].title} questions={resultObj[parmas.id].questions} />,
   };
 
   useEffect(() => {
@@ -60,31 +51,36 @@ const Maks = () => {
       position: "top",
       content: "已回到上次浏览位置",
     });
-  }, [posRef, parmas]);
+
+    // 内容不够时候直接设置100%
+    if (posRef.current && contentRef.current) {
+      const bh = posRef.current.offsetHeight;
+      const ch = contentRef.current.offsetHeight;
+      if (ch < bh) {
+        setViewPos({ id: parmas.id, pos: bh, name: query.name, percent: 100 });
+      }
+    }
+  }, [posRef, parmas, query]);
 
   const onScroll = throttle((e) => {
-    const { scrollTop } = e.target;
-    setViewPos({ id: parmas.id, pos: scrollTop, name: query.name });
-  }, 300);
+    const { scrollTop, offsetHeight, scrollHeight } = e.target;
+    const scrollPos = scrollTop + offsetHeight;
+    let s = 0;
+    if (scrollTop < offsetHeight) s = offsetHeight;
+    if (scrollPos >= 100) s = scrollPos;
+    let percent = Math.floor((s / scrollHeight) * 100);
+    setViewPos({ id: parmas.id, pos: scrollTop, name: query.name, percent });
+  }, 0);
 
   // NavBack高度83px
   return (
     <NavBack query={query}>
-      <div
-        className="flex-col ui-h-100"
-        style={{ marginTop: 83, overflowY: "auto" }}
-        onScroll={onScroll}
-        ref={posRef}
-      >
-        <div className="flex-1" style={{ margin: "0 10px" }}>
+      <div className="flex-col ui-h-100" style={{ marginTop: 83, overflowY: "auto" }} onScroll={onScroll} onLoad={onScroll} ref={posRef}>
+        <div style={{ margin: "0 10px" }} ref={contentRef}>
           {hacCate ? (
             randerResult[resultObj[parmas.id].cate]
           ) : (
-            <Result
-              status="info"
-              title="暂无数据"
-              description={descList[rangeRandom(0, descList.length - 1)]}
-            />
+            <Result status="info" title="暂无数据" description={descList[rangeRandom(0, descList.length - 1)]} />
           )}
           <Divider
             style={{

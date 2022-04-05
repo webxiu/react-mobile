@@ -1,4 +1,4 @@
-import { Swiper, WaterMark } from "antd-mobile";
+import { SafeArea, Swiper, WaterMark } from "antd-mobile";
 
 import React from "react";
 
@@ -18,12 +18,14 @@ const Message = () => {
 
   return (
     <div>
+      <SafeArea position="top" />
       <WaterMark {...textProps} />
       <div>
         <Swiper direction="vertical" loop style={{ "--height": "100vh" }}>
           {verticalItems}
         </Swiper>
       </div>
+      <SafeArea position="bottom" />
     </div>
   );
 };

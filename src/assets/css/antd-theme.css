@@ -1,3 +1,7 @@
 .adm-list-item-content-main {
   overflow: hidden;
 }
+/* 删除滑块 */
+.adm-swipe-action-actions-right {
+  margin-left: 3px;
+}

@@ -20,15 +20,16 @@ const Personal = () => {
         <List header="联系">
           <List.Item
             key={"hailen"}
-            prefix={
-              <Image
-                src={header}
-                style={{ borderRadius: 20 }}
-                fit="cover"
-                width={40}
-                height={40}
-              />
-            }
+            prefix={<Image src={header} style={{ borderRadius: 20 }} fit="cover" width={40} height={40} />}
+            description={"联系QQ: 759430324"}
+          >
+            Hailen
+          </List.Item>
+        </List>
+        <List header="设置">
+          <List.Item
+            key={"hailen"}
+            prefix={<Image src={header} style={{ borderRadius: 20 }} fit="cover" width={40} height={40} />}
             description={"联系QQ: 759430324"}
           >
             Hailen
@@ -75,12 +76,7 @@ const Personal = () => {
             添加进群
           </a>
 
-          <Button
-            block
-            color="danger"
-            style={{ marginTop: "20px" }}
-            onClick={logout}
-          >
+          <Button block color="danger" style={{ marginTop: "20px" }} onClick={logout}>
             退出
           </Button>
         </div>

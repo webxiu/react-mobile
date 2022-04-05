@@ -1,21 +1,8 @@
-import {
-  Button,
-  Card,
-  Dialog,
-  Empty,
-  List,
-  PullToRefresh,
-  SearchBar,
-} from "antd-mobile";
+import { Button, Card, Dialog, Empty, List, ProgressCircle, PullToRefresh, SearchBar, SwipeAction } from "antd-mobile";
 import React, { useEffect, useState } from "react";
-import {
-  clearHistory,
-  getHistory,
-  removeHistory,
-} from "../../../utils/storage";
+import { clearHistory, getHistory, getViewPos, removeHistory, removeViewPos } from "../../../utils/storage";
 import { formatDate, throttle } from "../../../utils";
 
-import { DeleteOutline } from "antd-mobile-icons";
 import { sleep } from "antd-mobile/es/utils/sleep";
 import { useHistory } from "react-router";
 
@@ -36,9 +23,7 @@ const Study = () => {
     setHistoryList((x) => {
       setShowButton(false);
       return x.filter((f) => {
-        const s =
-          (f.name && f.name.indexOf(value) > -1) ||
-          (f.title && f.title.indexOf(value) > -1);
+        const s = (f.name && f.name.indexOf(value) > -1) || (f.title && f.title.indexOf(value) > -1);
         return s;
       });
     });
@@ -48,13 +33,12 @@ const Study = () => {
     setHistoryList(userHistory);
   };
 
-  const onDelete = async (item, e) => {
-    e.stopPropagation();
-    e.preventDefault();
+  const onDelete = async (item) => {
     const res = await Dialog.confirm({ content: "确认删除吗?" });
     if (res) {
       removeHistory(item.id);
       setHistoryList((x) => x.filter((f) => f.id !== item.id));
+      removeViewPos(item.id);
     }
   };
 
@@ -98,10 +82,7 @@ const Study = () => {
             />
           </div>
           {historyList.length === 0 ? (
-            <div
-              className="flex-col align-center just-center"
-              style={{ height: "70%" }}
-            >
+            <div className="flex-col align-center just-center" style={{ height: "70%" }}>
               <Empty description="暂无学习记录~" />
               {showButton ? (
                 <div className="ui-ta-c">
@@ -112,47 +93,52 @@ const Study = () => {
               ) : null}
             </div>
           ) : (
-            <List style={{ minHeight: "100vh" }}>
-              {historyList.map((item, index) => (
-                <List.Item key={index}>
-                  <div onClick={onJump.bind(null, item)}>
-                    <div className="flex just-between align-center">
-                      <h4
-                        style={{ padding: 0, width: "75%" }}
-                        className="ellipsis"
-                      >
-                        {item.title}
-                      </h4>
-                      <DeleteOutline
-                        onClick={onDelete.bind(null, item)}
-                        style={{ padding: "0 5px" }}
-                      />
-                    </div>
-                    <h6
-                      style={{ fontWeight: 400, width: "90%" }}
-                      className="ellipsis fz14 mt5"
-                    >
-                      {item.name}
-                    </h6>
-                    <div className="flex just-between mt10">
-                      <div
-                        className="fz12"
-                        style={{
-                          color: item.cate === "简答题" ? "#f60" : "#3134eb",
-                        }}
-                      >
-                        {item.cate}
+            <List
+              style={{
+                minHeight: "100vh",
+                "--padding-left": 0,
+                "--padding-right": 0,
+              }}
+            >
+              {historyList.map((item, index) => {
+                const p = getViewPos(item.id);
+                const percent = p ? p.percent : 0;
+                return (
+                  <SwipeAction
+                    key={item.id}
+                    closeOnAction={false}
+                    rightActions={[{ key: "delete", text: "删除", color: "danger", onClick: () => onDelete(item) }]}
+                  >
+                    <List.Item key={index}>
+                      <div onClick={onJump.bind(null, item)}>
+                        <div className="flex just-between align-center">
+                          <div className="flex-1 ui-ov-h mr10">
+                            <h4 style={{ padding: 0 }} className="ellipsis">
+                              {item.title}
+                            </h4>
+                            <h6 style={{ fontWeight: 400 }} className="flex-1 fz14  ellipsis">
+                              {item.name}
+                            </h6>
+                          </div>
+                          <ProgressCircle percent={percent} style={{ "--size": "40px" }}>
+                            <span className="fz12" style={{ lineHeight: 40 }}>
+                              {percent}%
+                            </span>
+                          </ProgressCircle>
+                        </div>
+                        <div className="flex just-between mt5">
+                          <div className="fz12" style={{ color: item.cate === "简答题" ? "#f60" : "#3134eb" }}>
+                            {item.cate}
+                          </div>
+                          <div className="word-nowrap fz12" style={{ color: "#99a2aa" }}>
+                            {formatDate(item.time)}
+                          </div>
+                        </div>
                       </div>
-                      <div
-                        className="word-nowrap fz12"
-                        style={{ color: "#99a2aa" }}
-                      >
-                        {formatDate(item.time)}
-                      </div>
-                    </div>
-                  </div>
-                </List.Item>
-              ))}
+                    </List.Item>
+                  </SwipeAction>
+                );
+              })}
             </List>
           )}
         </Card>

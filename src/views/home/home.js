@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  getActiveTitle,
-  getCollapse,
-  setActiveTitle,
-  setCollapse,
-  setHistory,
-} from "../../utils/storage";
+import { getActiveTitle, getCollapse, setActiveTitle, setCollapse, setHistory } from "../../utils/storage";
 
 import { Collapse } from "antd-mobile";
 import MenuList from "../../layout/MenuList";
@@ -34,21 +28,17 @@ const Home = (props) => {
     const pathname = `${item.path}/${item.id}`;
     const search = `course=${parentPath}&title=${title}&name=${item.name}`;
     const link = pathname + "?" + encodeURIComponent(search);
-    const cate =
-      item.name.search("客观") !== -1
-        ? "选择题"
-        : item.name.search("主观") !== -1
-        ? "简答题"
-        : "其他";
+    const cate = item.name.search("客观") !== -1 ? "选择题" : item.name.search("主观") !== -1 ? "简答题" : "其他";
 
     history.push({ pathname, search: encodeURIComponent(search) });
     setHistory({
       id: item.id,
       cate,
-      name: item.name,
+      name: item.name.replace(/（客观）/g, "").replace(/（主观）/g, ""),
       title,
       time: Date.now(),
       link,
+      percent: 0,
     });
   };
 
@@ -60,10 +50,7 @@ const Home = (props) => {
         {contentsList.map((route) => {
           if (route.hidden) return null;
           return route.children ? (
-            <Collapse.Panel
-              key={route.path}
-              title={<span className="ellipsis">{route.name}</span>}
-            >
+            <Collapse.Panel key={route.path} title={<span className="ellipsis">{route.name}</span>}>
               {route.children.map((child, index) => (
                 <div key={index}>
                   <div
@@ -74,7 +61,7 @@ const Home = (props) => {
                     }}
                     onClick={() => onJumpList(child, route.key, route.name)}
                   >
-                    {child.name}
+                    {child.name.replace(/（客观/g, "（选择题").replace(/（主观/g, "（简答题")}
                   </div>
                 </div>
               ))}

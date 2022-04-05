@@ -45,7 +45,7 @@ export const contentsList = [
     path: "/marx",
     key: "marx",
     children: marxChildren,
-    name: "03709 马克思主义基本原理概论",
+    name: "马克思主义基本原理概论（03709）",
     description:
       "马克思主义基本原理概论（03709）是高等教育自学考试各专业本科阶段的一门公共基础课。本课程共7章内容，重点在第1章、第2章、第3章、第4章、第5章、第6章；次重点在第7章。",
   },
@@ -53,7 +53,7 @@ export const contentsList = [
     path: "/history",
     key: "history",
     children: historyChildren,
-    name: "03708 中国近现代史纲要",
+    name: "中国近现代史纲要（03708）",
     description:
       "中国近现代史（03708）是高等教育自学考试各专业本科阶段的一门公共基础课。本课程共11章内容，重点在第1章、第2章、第3章、第5章、第6章、第8章、第11章；次重点在第4章、第7章、第9章、第10章。",
   },
@@ -61,8 +61,7 @@ export const contentsList = [
     path: "/society",
     key: "society",
     children: societyChildren,
-    name: "12656 毛泽东思想和中国特色社会主义思想概论",
-    description:
-      "毛泽东思想和中国特色社会主义思想概论（12656）是高等教育自学考试各专业专科阶段的一门公共基础课。",
+    name: "毛泽东思想和中国特色社会主义思想概论（12656）",
+    description: "毛泽东思想和中国特色社会主义思想概论（12656）是高等教育自学考试各专业专科阶段的一门公共基础课。",
   },
 ];
