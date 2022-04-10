@@ -6,11 +6,11 @@ import header from "../../../assets/images/head01.gif";
 import { useHistory } from "react-router";
 
 const Personal = () => {
+  const inputEle = useRef(null);
   const history = useHistory();
   const userInfo = getUserInfo();
   const headUrl = userInfo.headerUrl || header;
-  console.log("userInfo", userInfo);
-  const inputEle = useRef(null);
+  const [headerUrl, setHeaderUrl] = useState(headUrl);
 
   const logout = async () => {
     const res = await Dialog.confirm({ content: "确认退出吗?" });
@@ -19,8 +19,6 @@ const Personal = () => {
       history.replace("/login");
     }
   };
-
-  const [headerUrl, setHeaderUrl] = useState(headUrl);
 
   const onSelectFile = () => {
     inputEle.current.dispatchEvent(new MouseEvent("click"));
