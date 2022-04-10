@@ -1,12 +1,17 @@
 import { Button, Dialog, Image, List } from "antd-mobile";
+import React, { useRef, useState } from "react";
+import { getUserInfo, removeUserInfo, setUserInfo } from "../../../utils/storage";
 
-import React from "react";
-import header from "../../../assets/images/header.png";
-import { removeUserInfo } from "../../../utils/storage";
+import header from "../../../assets/images/head01.gif";
 import { useHistory } from "react-router";
 
 const Personal = () => {
   const history = useHistory();
+  const userInfo = getUserInfo();
+  const headUrl = userInfo.headerUrl || header;
+  console.log("userInfo", userInfo);
+  const inputEle = useRef(null);
+
   const logout = async () => {
     const res = await Dialog.confirm({ content: "确认退出吗?" });
     if (res) {
@@ -14,22 +19,32 @@ const Personal = () => {
       history.replace("/login");
     }
   };
+
+  const [headerUrl, setHeaderUrl] = useState(headUrl);
+
+  const onSelectFile = () => {
+    inputEle.current.dispatchEvent(new MouseEvent("click"));
+  };
+
+  const onFileChange = async (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setHeaderUrl(reader.result);
+      setUserInfo({ headerUrl: reader.result });
+    };
+    reader.readAsDataURL(file);
+  };
+
   return (
     <div className="flex-col just-between ui-h-100">
+      <input type="file" ref={inputEle} accept={"image/*"} onChange={onFileChange} style={{ display: "none" }} />
       <div>
         <List header="联系">
           <List.Item
+            onClick={onSelectFile}
             key={"hailen"}
-            prefix={<Image src={header} style={{ borderRadius: 20 }} fit="cover" width={40} height={40} />}
-            description={"联系QQ: 759430324"}
-          >
-            Hailen
-          </List.Item>
-        </List>
-        <List header="设置">
-          <List.Item
-            key={"hailen"}
-            prefix={<Image src={header} style={{ borderRadius: 20 }} fit="cover" width={40} height={40} />}
+            prefix={<Image src={headerUrl} style={{ borderRadius: 20 }} fit="cover" width={40} height={40} />}
             description={"联系QQ: 759430324"}
           >
             Hailen
