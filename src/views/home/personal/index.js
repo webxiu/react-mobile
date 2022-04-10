@@ -1,16 +1,19 @@
 import { Button, Dialog, Image, List } from "antd-mobile";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getUserInfo, removeUserInfo, setUserInfo } from "../../../utils/storage";
 
-import header from "../../../assets/images/head01.gif";
+import header from "../../../assets/images/header.png";
 import { useHistory } from "react-router";
+import userHeader from "../../../assets/images/head01.gif";
 
 const Personal = () => {
   const inputEle = useRef(null);
   const history = useHistory();
+  const [userHeaderUrl, setUserHeadUrl] = useState(header);
   const userInfo = getUserInfo();
-  const headUrl = userInfo.headerUrl || header;
-  const [headerUrl, setHeaderUrl] = useState(headUrl);
+  useEffect(() => {
+    setUserHeadUrl(userInfo.userHeaderUrl || userHeader);
+  }, [userInfo]);
 
   const logout = async () => {
     const res = await Dialog.confirm({ content: "确认退出吗?" });
@@ -28,8 +31,8 @@ const Personal = () => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onload = (e) => {
-      setHeaderUrl(reader.result);
-      setUserInfo({ headerUrl: reader.result });
+      setUserHeadUrl(reader.result);
+      setUserInfo({ userHeaderUrl: reader.result });
     };
     reader.readAsDataURL(file);
   };
@@ -38,14 +41,23 @@ const Personal = () => {
     <div className="flex-col just-between ui-h-100">
       <input type="file" ref={inputEle} accept={"image/*"} onChange={onFileChange} style={{ display: "none" }} />
       <div>
-        <List header="联系">
+        <List header="站长">
           <List.Item
-            onClick={onSelectFile}
             key={"hailen"}
-            prefix={<Image src={headerUrl} style={{ borderRadius: 20 }} fit="cover" width={40} height={40} />}
+            prefix={<Image src={header} style={{ borderRadius: 20 }} fit="cover" width={40} height={40} />}
             description={"联系QQ: 759430324"}
           >
             Hailen
+          </List.Item>
+        </List>
+        <List header="我的">
+          <List.Item
+            onClick={onSelectFile}
+            key={"hailen"}
+            prefix={<Image src={userHeaderUrl} style={{ borderRadius: 20 }} fit="cover" width={40} height={40} />}
+            description={"当前登录"}
+          >
+            {userInfo.username}
           </List.Item>
         </List>
         <div style={{ margin: "50px 10px 0" }}>
