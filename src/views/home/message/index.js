@@ -10,18 +10,16 @@ const Message = () => {
 
   const verticalItems = colors.map((color, index) => (
     <Swiper.Item key={index}>
-      <div style={{ background: color, height: "100%" }}>
-        请使用浏览器打开 {index + 1}
-      </div>
+      <div style={{ background: color, height: "100%" }}>请使用浏览器打开 {index + 1}</div>
     </Swiper.Item>
   ));
 
   return (
-    <div>
+    <div className="ui-h-100">
       <SafeArea position="top" />
       <WaterMark {...textProps} />
-      <div>
-        <Swiper direction="vertical" loop style={{ "--height": "100vh" }}>
+      <div className="ui-h-100">
+        <Swiper direction="vertical" loop style={{ "--height": "100%" }}>
           {verticalItems}
         </Swiper>
       </div>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { getActiveTitle, getCollapse, setActiveTitle, setCollapse, setHistory } from "../../utils/storage";
 
 import { Collapse } from "antd-mobile";
-import MenuList from "../../layout/MenuList";
 import { contentsList } from "../../data";
 import { useHistory } from "react-router";
 
@@ -43,8 +42,7 @@ const Home = (props) => {
   };
 
   return (
-    <MenuList>
-      {props.children}
+    <>
       <h3 style={{ margin: 10 }}>考试科目</h3>
       <Collapse accordion={true} onChange={onChange} activeKey={isCollapse}>
         {contentsList.map((route) => {
@@ -86,7 +84,7 @@ const Home = (props) => {
           );
         })}
       </Collapse>
-    </MenuList>
+    </>
   );
 };
 

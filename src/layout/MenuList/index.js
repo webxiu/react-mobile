@@ -13,18 +13,12 @@ const MenuList = (props) => {
   };
   return (
     <div className="layout-wrap">
-      <div className="flex-1 ui-ovy-a">{props.children}</div>
+      <div className="flex-1 ui-ovy-a ui-p-r" style={{ marginBottom: 50 }}>
+        {props.children}
+      </div>
       <div className="menu-list">
         <TabBar safeArea activeKey={location.pathname} onChange={onChange}>
-          {menus.map((item) =>
-            item.show ? (
-              <TabBar.Item
-                key={item.path}
-                icon={item.icon}
-                title={item.title}
-              />
-            ) : null
-          )}
+          {menus.map((item) => (item.show ? <TabBar.Item key={item.path} icon={item.icon} title={item.title} /> : null))}
         </TabBar>
       </div>
     </div>
