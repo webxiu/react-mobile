@@ -49,7 +49,7 @@ const Maks = () => {
     Toast.show({
       duration: 2000,
       position: "top",
-      content: "已回到上次浏览位置",
+      content: "欢迎回来, 已回到上次浏览位置",
     });
 
     // 内容不够时候直接设置100%

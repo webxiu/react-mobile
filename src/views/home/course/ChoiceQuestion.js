@@ -15,13 +15,9 @@ const Maks = (props) => {
         return (
           <List.Item key={item.id}>
             <div className="flex align-start">
-              <span style={{ background: "#ffff00", color: "#333" }}>
-                [{item.number}]
-              </span>
-              <div style={{ fontSize: 14 }}>
-                <div style={{ fontWeight: 700 }}>
-                  {item.title.replace("（", "（ " + item.answer[0])}
-                </div>
+              <span style={{ background: "#ffff00", color: "#333" }}>[{item.number}]</span>
+              <div style={{ fontSize: 14, marginLeft: 10 }}>
+                <div style={{ fontWeight: 700 }}>{item.title.replace("（", "（ " + item.answer[0]).replace("【自测题】", "")}</div>
                 <div className="mt10">
                   <Radio.Group value={item.answer[0]}>
                     <Space direction="vertical">
@@ -44,7 +40,7 @@ const Maks = (props) => {
                 </div>
                 {item.explanation ? (
                   <>
-                    <div className="exp_desc">题解</div>
+                    <div className="exp_desc">【解释】:</div>
                     <div
                       className="explanation"
                       dangerouslySetInnerHTML={{

@@ -46,22 +46,11 @@ body,
 
 div.exp_desc {
   position: relative;
-  padding-left: 12px;
-  margin-top: 10px;
+  margin: 10px 0 5px -6px;
   font-weight: 700;
-  margin-bottom: 5px;
+  color: #f60;
 }
-div.exp_desc:before {
-  position: absolute;
-  display: inline-block;
-  content: "";
-  height: 1em;
-  width: 4px;
-  margin: 1px 10px 0 0;
-  background-color: #930a41;
-  left: 0px;
-  top: 2px;
-}
+
 .answer {
   color: #18cf86;
 }

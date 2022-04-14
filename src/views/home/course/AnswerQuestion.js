@@ -13,23 +13,19 @@ const Wrap = (props) => {
         return (
           <List.Item key={item.id}>
             <div className="flex align-start">
-              <span style={{ background: "#ffff00", color: "#333" }}>
-                [{item.number}]
-              </span>
-              <div style={{ fontSize: 14 }}>
-                <div style={{ fontWeight: 700 }}>{item.title}</div>
-                <div className="exp_desc">答案</div>
+              <span style={{ background: "#ffff00", color: "#333" }}>[{item.number}]</span>
+              <div style={{ fontSize: 14, marginLeft: 10 }}>
+                <div style={{ fontWeight: 700 }}>{item.title.replace("【自测题】", "")}</div>
+                <div className="exp_desc">【答案】</div>
                 <div
                   className="answer"
                   dangerouslySetInnerHTML={{
-                    __html: formatExplanation(
-                      Array.isArray(item.answer) ? item.answer[0] : item.answer
-                    ),
+                    __html: formatExplanation(Array.isArray(item.answer) ? item.answer[0] : item.answer),
                   }}
                 ></div>
                 {item.explanation ? (
                   <>
-                    <div className="exp_desc">题解</div>
+                    <div className="exp_desc">【解释】</div>
                     <div
                       className="explanation"
                       dangerouslySetInnerHTML={{
