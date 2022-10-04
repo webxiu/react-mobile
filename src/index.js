@@ -13,7 +13,7 @@ import store from "./redux/store";
 
 const Root = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/course'>
       <Suspense fallback={<RouterWrapSpin />}>
         <RootRouter />
       </Suspense>

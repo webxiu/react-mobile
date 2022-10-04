@@ -2,6 +2,7 @@
   "name": "hooks-admin",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/course/",
   "dependencies": {
     "@loadable/component": "^5.10.3",
     "antd": "^3.25.1",
